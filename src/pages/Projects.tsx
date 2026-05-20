@@ -11,8 +11,8 @@ export default function Projects() {
     <div className="bg-primary min-h-screen pb-32">
       {/* Immersive Header */}
       <section className="relative pt-32 pb-16 md:pb-20 px-6 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-accent/5 blur-[120px] rounded-full -z-10" />
-        <div className="absolute -bottom-20 -left-20 w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-secondary/5 blur-[100px] rounded-full -z-10" />
+        <div className="absolute top-0 right-0 w-75 md:w-125 h-75 md:h-125 bg-accent/5 blur-[120px] rounded-full -z-10" />
+        <div className="absolute -bottom-20 -left-20 w-50 md:w-100 h-50 md:h-100 bg-secondary/5 blur-[100px] rounded-full -z-10" />
         
         <div className="max-w-7xl mx-auto text-center">
             <motion.div
@@ -40,7 +40,10 @@ export default function Projects() {
         {/* Projects Grid - IMPROVED RESPONSIVE */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <AnimatePresence mode="popLayout">
-            {portfolioData.projects.map((project, idx) => (
+            {portfolioData.projects.map((project, idx) => {
+              const targetUrl = project.liveDemo && project.link ? project.link : project.github;
+
+              return (
               <motion.div
                 key={project.id}
                 layout
@@ -50,8 +53,20 @@ export default function Projects() {
                 transition={{ duration: 0.5 }}
                 className="group relative"
               >
-                 <div className="glass-panel overflow-hidden rounded-[2.5rem] sm:rounded-[3rem] border-white/5 flex flex-col h-full hover:border-accent/30 transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
-                   <div className="relative aspect-[16/10] overflow-hidden">
+                 <div
+                   className="glass-panel overflow-hidden rounded-[2.5rem] sm:rounded-[3rem] border-white/5 flex flex-col h-full hover:border-accent/30 transition-all duration-500 hover:shadow-[0_30px_80px_rgba(0,0,0,0.6)] cursor-pointer"
+                   role="link"
+                   tabIndex={0}
+                   aria-label={`Open ${project.title}`}
+                   onClick={() => window.open(targetUrl, '_blank', 'noopener,noreferrer')}
+                   onKeyDown={(event) => {
+                     if (event.key === 'Enter' || event.key === ' ') {
+                       event.preventDefault();
+                       window.open(targetUrl, '_blank', 'noopener,noreferrer');
+                     }
+                   }}
+                 >
+                   <div className="relative aspect-16/10 overflow-hidden">
                         <LazyImage 
                             src={project.image} 
                             alt={project.title} 
@@ -64,17 +79,29 @@ export default function Projects() {
                         </div>
                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center gap-4 sm:gap-6">
                             {project.liveDemo && (
-                                <a href={project.link} target="_blank" rel="noreferrer" className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-accent text-primary flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-2xl">
+                                <a
+                                  href={project.link}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-accent text-primary flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-2xl"
+                                  onClick={(event) => event.stopPropagation()}
+                                >
                                     <ExternalLink size={20} className="md:w-6 md:h-6" />
                                 </a>
                             )}
-                            <a href={project.github} target="_blank" rel="noreferrer" className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-white text-primary flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-2xl">
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-white text-primary flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-2xl"
+                              onClick={(event) => event.stopPropagation()}
+                            >
                                 <Github size={20} className="md:w-6 md:h-6" />
                             </a>
                         </div>
                    </div>
 
-                   <div className="p-8 sm:p-10 flex flex-col flex-grow">
+                   <div className="p-8 sm:p-10 flex flex-col grow">
                         <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
                             {project.tech.map(t => (
                                 <span key={t} className="text-[10px] font-black tracking-[0.2em] uppercase text-beige/30">
@@ -89,19 +116,27 @@ export default function Projects() {
                             {project.description}
                         </p>
                         
-                        <div className="mt-auto pt-6 sm:pt-8 border-t border-white/5 flex justify-between items-center">
-                             <div className="flex items-center gap-2 text-accent font-black tracking-[0.2em] uppercase text-[10px]">
-                                <MousePointer2 size={14} />
-                                Explore Case
-                             </div>
-                             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-accent group-hover:text-primary transition-all">
-                                <ArrowRight size={16} className="md:w-[18px] md:h-[18px]" />
-                             </div>
-                        </div>
+                        <button
+                          type="button"
+                          className="mt-auto pt-6 sm:pt-8 border-t border-white/5 flex justify-between items-center text-left"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            window.open(targetUrl, '_blank', 'noopener,noreferrer');
+                          }}
+                        >
+                          <div className="flex items-center gap-2 text-accent font-black tracking-[0.2em] uppercase text-[10px]">
+                            <MousePointer2 size={14} />
+                            Explore Case
+                          </div>
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-accent group-hover:text-primary transition-all">
+                            <ArrowRight size={16} className="md:w-4.5 md:h-4.5" />
+                          </div>
+                        </button>
                    </div>
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </AnimatePresence>
         </div>
 
@@ -111,7 +146,7 @@ export default function Projects() {
       <section className="mt-20 px-6">
          <div className="max-w-7xl mx-auto glass-panel p-10 sm:p-20 md:p-32 rounded-[3rem] md:rounded-[5rem] text-center border-white/5 relative overflow-hidden bg-accent/5">
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-10 tracking-tighter leading-none">
-                Start your next <br /> project with <span className="text-accent underline decoration-4 underline-offset-[10px] md:underline-offset-8">Precision</span>.
+              Start your next <br /> project with <span className="text-accent underline decoration-4 underline-offset-10 md:underline-offset-8">Precision</span>.
             </h2>
             <Link to="/contact" className="w-full sm:w-auto px-10 sm:px-12 py-5 sm:py-6 bg-accent text-primary rounded-2xl font-black text-lg sm:text-xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-accent/20 inline-block">
                 Start a Conversation

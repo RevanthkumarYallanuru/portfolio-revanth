@@ -20,7 +20,7 @@ export default function Services() {
             <span className="text-xs font-black uppercase tracking-widest">My Expertise</span>
           </motion.div>
           <h1 className="text-5xl sm:text-7xl md:text-9xl font-black mb-10 tracking-tighter leading-none">
-            High <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-beige">Performance</span> Solutions.
+            High <span className="text-transparent bg-clip-text bg-linear-to-r from-accent to-beige">Performance</span> Solutions.
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-beige/60 max-w-2xl mx-auto leading-relaxed px-4">
             I don't just build websites; I engineer digital engines designed to propel your brand into the future.
@@ -37,7 +37,7 @@ export default function Services() {
               transition={{ delay: i * 0.1 }}
               className={cn(
                 "group relative overflow-hidden p-8 sm:p-12 md:p-16 rounded-[2.5rem] sm:rounded-[4rem] border border-white/5 flex flex-col",
-                service.highlighted ? "bg-secondary/10" : "bg-white/[0.02]"
+                service.highlighted ? "bg-secondary/10" : "bg-white/2"
               )}
             >
               {/* Decorative elements */}
@@ -85,7 +85,7 @@ export default function Services() {
         {/* Call to Action Banner */}
         <section className="relative rounded-[3rem] md:rounded-[5rem] overflow-hidden bg-accent p-8 sm:p-12 md:p-24 text-primary text-center mx-4 sm:mx-0">
           <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none mix-blend-overlay">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent animate-pulse-slow" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white via-transparent to-transparent animate-pulse-slow" />
           </div>
           <h2 className="text-4xl sm:text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-none">
             Ready to Build <br /> Something Epic?

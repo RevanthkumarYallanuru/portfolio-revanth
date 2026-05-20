@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ImageOff } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 
@@ -29,18 +29,54 @@ export default function LazyImage({
   onError,
   ...rest
 }: LazyImageProps) {
+  const imgRef = useRef<HTMLImageElement | null>(null);
   const [resolvedSrc, setResolvedSrc] = useState(src);
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(priority);
 
   useEffect(() => {
-    setResolvedSrc(src);
+    setResolvedSrc(priority ? src : PLACEHOLDER_SRC);
     setLoaded(false);
     setFailed(false);
-  }, [src]);
+    setShouldLoad(priority);
+  }, [src, priority]);
+
+  useEffect(() => {
+    if (priority) {
+      setShouldLoad(true);
+      return;
+    }
+
+    if (!imgRef.current || typeof IntersectionObserver === 'undefined') {
+      setShouldLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px 0px' },
+    );
+
+    observer.observe(imgRef.current);
+
+    return () => observer.disconnect();
+  }, [priority]);
+
+  useEffect(() => {
+    if (shouldLoad && resolvedSrc !== src) {
+      setResolvedSrc(src);
+    }
+  }, [shouldLoad, resolvedSrc, src]);
 
   return (
     <img
+      ref={imgRef}
       {...rest}
       src={resolvedSrc}
       alt={alt}

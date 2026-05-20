@@ -124,7 +124,7 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-grow p-6 sm:p-8 md:p-12 overflow-y-auto max-h-screen">
+      <main className="grow p-6 sm:p-8 md:p-12 overflow-y-auto max-h-screen">
         <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 md:mb-12">
           <div>
             <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2">Portfolio {activeTab}</h1>
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
               onClick={() => {
                 if (activeTab === 'Projects' || activeTab === 'Overview') setShowAddProject(true);
               }}
-              className="flex-grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-3 bg-accent text-primary rounded-2xl font-bold text-sm shadow-lg shadow-accent/20"
+              className="grow sm:flex-initial flex items-center justify-center gap-2 px-6 py-3 bg-accent text-primary rounded-2xl font-bold text-sm shadow-lg shadow-accent/20"
             >
                 <Plus size={18} />
                 <span className="whitespace-nowrap">New {activeTab.slice(0, -1)}</span>
@@ -162,7 +162,7 @@ export default function AdminDashboard() {
                
                <form onSubmit={handleAddProject} className="space-y-6">
                  <div className="space-y-2">
-                   <label className="text-[10px] font-black uppercase tracking-widest text-accent ml-2 text-primary font-black bg-accent px-2 py-0.5 rounded">Title</label>
+                   <label className="text-[10px] font-black uppercase tracking-widest text-primary ml-2 bg-accent px-2 py-0.5 rounded">Title</label>
                    <input 
                     required
                     value={newProject.title}
@@ -217,7 +217,7 @@ export default function AdminDashboard() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 {stats.map((stat, i) => (
-                    <div key={i} className="glass-panel p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] relative overflow-hidden group">
+                    <div key={i} className="glass-panel p-6 sm:p-8 rounded-4xl sm:rounded-[2.5rem] relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
                             {stat.icon}
                         </div>
@@ -238,7 +238,7 @@ export default function AdminDashboard() {
                         <h3 className="text-xl font-bold">Engagement Flow</h3>
                         <Activity className="text-accent" />
                     </div>
-                    <div className="h-[250px] sm:h-[300px] w-full">
+                    <div className="h-62.5 sm:h-75 w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={analyticsData}>
                                 <defs>
@@ -265,7 +265,7 @@ export default function AdminDashboard() {
                         <h3 className="text-xl font-bold">Click Conversion</h3>
                         <Calendar className="text-accent" />
                     </div>
-                    <div className="h-[250px] sm:h-[300px] w-full">
+                    <div className="h-62.5 sm:h-75 w-full">
                         <ResponsiveContainer width="100%" height="100%">
                              <BarChart data={analyticsData}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
@@ -355,7 +355,7 @@ export default function AdminDashboard() {
                     <h3 className="font-bold text-lg mb-2">{project.title}</h3>
                     <p className="text-beige/40 text-sm line-clamp-2 mb-4">{project.description}</p>
                     <div className="flex flex-wrap gap-2">
-                       {project.tags.map(tag => (
+                       {(((project as { tags?: string[]; tech?: string[] }).tags ?? project.tech) || []).map((tag: string) => (
                          <span key={tag} className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full text-accent">{tag}</span>
                        ))}
                     </div>
@@ -382,7 +382,7 @@ export default function AdminDashboard() {
 
             <div className="space-y-4">
               {portfolioData.testimonials.map((test, i) => (
-                <div key={i} className="glass-panel p-6 sm:p-8 rounded-[2rem] border-white/5 flex items-center justify-between gap-6">
+                <div key={i} className="glass-panel p-6 sm:p-8 rounded-4xl border-white/5 flex items-center justify-between gap-6">
                   <div className="flex items-center gap-6">
                     <div className="w-14 h-14 bg-secondary rounded-2xl flex items-center justify-center font-black text-accent text-xl shrink-0 uppercase">
                       {test.author[0]}

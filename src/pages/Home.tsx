@@ -53,7 +53,7 @@ export default function Home() {
   return (
     <div className="relative overflow-hidden">
       {/* Immersive Hero Section */}
-      <section className="relative min-h-[100vh] flex items-center px-4 md:px-8 py-20">
+      <section className="relative min-h-screen flex items-center px-4 md:px-8 py-20">
         <Hero3D />
         <FloatingIcons />
         
@@ -155,7 +155,7 @@ export default function Home() {
               
               <div className="grid grid-cols-2 gap-4 md:gap-6 max-w-lg mx-auto xl:mx-0">
                 {stats.map((stat, i) => (
-                  <div key={i} className="glass-panel p-6 rounded-[2rem] group hover:border-accent/40 transition-all">
+                  <div key={i} className="glass-panel p-6 rounded-4xl group hover:border-accent/40 transition-all">
                     <div className="mb-4 group-hover:scale-110 transition-transform flex justify-center xl:justify-start">{stat.icon}</div>
                     <div className="text-2xl sm:text-3xl font-black mb-1">{stat.value}</div>
                     <div className="text-[10px] font-bold uppercase tracking-widest text-beige/30">{stat.label}</div>
@@ -286,7 +286,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group relative h-[450px] sm:h-[550px] md:h-[650px] overflow-hidden rounded-[2.5rem] sm:rounded-[3.5rem] bg-[#0d1213] border border-white/5"
+                className="group relative h-112.5 sm:h-137.5 md:h-162.5 overflow-hidden rounded-[2.5rem] sm:rounded-[3.5rem] bg-[#0d1213] border border-white/5"
               >
                 <LazyImage
                   src={project.image}
@@ -294,7 +294,7 @@ export default function Home() {
                   className="w-full h-full object-cover opacity-50 group-hover:scale-110 group-hover:opacity-70 transition-all duration-1000 ease-out"
                 />
                 
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent p-10 flex flex-col justify-end">
+                <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent p-10 flex flex-col justify-end">
                     <div className="flex flex-wrap gap-2 mb-6 pointer-events-none">
                         {project.tech.map(t => (
                             <span key={t} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-black uppercase tracking-widest border border-white/10">
@@ -354,7 +354,7 @@ export default function Home() {
             {[...(portfolioData.testimonials || []), ...(portfolioData.testimonials || []), ...(portfolioData.testimonials || [])].map((test, i) => (
               <div 
                 key={i} 
-                className="w-[300px] sm:w-[450px] shrink-0 glass-panel p-8 sm:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] relative border-white/5 hover:border-accent/30 transition-all flex flex-col justify-between"
+                className="w-75 sm:w-112.5 shrink-0 glass-panel p-8 sm:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] relative border-white/5 hover:border-accent/30 transition-all flex flex-col justify-between"
               >
                 <div className="absolute top-10 right-10 opacity-5">
                    <Icons.Quote size={60} className="text-accent" />
@@ -384,8 +384,8 @@ export default function Home() {
           </motion.div>
           
           {/* Gradient overrides for smooth edges */}
-          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-primary to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-primary to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-primary to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-primary to-transparent z-10 pointer-events-none" />
         </div>
       </section>
 
@@ -394,14 +394,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto relative group">
           <div className="absolute inset-0 bg-accent rounded-[3rem] sm:rounded-[4rem] group-hover:scale-[1.02] transition-transform duration-500 -z-10 blur-2xl opacity-10" />
           <div className="glass-panel p-10 sm:p-20 md:p-32 rounded-[3rem] sm:rounded-[5rem] overflow-hidden relative text-center border-white/5">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent" />
             <span className="text-accent font-black tracking-[0.5em] uppercase text-xs mb-10 block">Ready for the Next Chapter?</span>
             <h2 className="text-4xl sm:text-5xl md:text-[8rem] font-black mb-12 tracking-tighter leading-none">
-                Let's Build <br /> Something <span className="text-accent italic underline decoration-4 underline-offset-[10px] md:underline-offset-[20px]">Iconic</span>.
+                Let's Build <br /> Something <span className="text-accent italic underline decoration-4 underline-offset-10 md:underline-offset-20">Iconic</span>.
             </h2>
             <Link 
               to="/contact" 
-              className="px-10 sm:px-16 py-6 sm:py-8 bg-accent text-primary rounded-2xl sm:rounded-[2rem] font-black text-lg sm:text-2xl hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-accent/40 inline-flex items-center gap-4 w-full sm:w-auto justify-center"
+              className="px-10 sm:px-16 py-6 sm:py-8 bg-accent text-primary rounded-2xl sm:rounded-4xl font-black text-lg sm:text-2xl hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-accent/40 inline-flex items-center gap-4 w-full sm:w-auto justify-center"
             >
               Start Connection
               <Zap fill="currentColor" />
